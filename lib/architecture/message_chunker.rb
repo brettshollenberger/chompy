@@ -14,7 +14,7 @@ class MessageChunker
       position = :first if index == 0
       position = :last if index == last_chunk
 
-      chunk = { message: msg, number: index+1, total: total_count }
+      chunk = { response: msg, number: index+1, total: total_count }
       chunk.merge!(position: position) unless position.nil?
 
       chunk
