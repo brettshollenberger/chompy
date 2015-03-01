@@ -19,17 +19,20 @@ class CircuitBreaker
 
   # Public: Wrap calls to a protected method in the circuit breaker
   #
-  # For calls that might fail for one reason or another (such as remote calls), the circuit breaker avoids overloading
-  # the system with long delays when the calls are primarily failing.
+  # For calls that might fail for one reason or another (such as remote calls), 
+  # the circuit breaker avoids overloading the system with long delays when the 
+  # calls are primarily failing.
   #
-  # If the circuit breaker is :closed (mostly successful calls) or :half_open (testing whether it can become closed again),
-  # it makes the protected call.
+  # If the circuit breaker is :closed (mostly successful calls) or :half_open 
+  # (testing whether it can become closed again), it makes the protected call.
   #
-  # If the circuit breaker is :open (mostly failed calls), then it alerts the caller that it will not make the call until
-  # the reset_timeout, by raising CircuitBreaker::Open.
+  # If the circuit breaker is :open (mostly failed calls), then it alerts the 
+  # caller that it will not make the call until the reset_timeout, by raising 
+  # CircuitBreaker::Open.
   #
-  # When more time has passed since the most recent failure than the reset_timeout, the circuit tentatively becomes :half_open,
-  # allowing an additional remote call. If the call succeeds, the circuit will remain :half_open until either enough calls succeed
+  # When more time has passed since the most recent failure than the reset_timeout, 
+  # the circuit tentatively becomes :half_open, allowing an additional remote call. 
+  # If the call succeeds, the circuit will remain :half_open until either enough calls succeed
   # to become :closed, or another call fails, resetting the reset_timeout.
   #
   def call(*args)

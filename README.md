@@ -1,3 +1,3 @@
 # Chompy
 
-[](lib/assets/img/hipsterchompy.gif)
+![](https://github.com/brettshollenberger/chompy/blob/master/lib/assets/img/hipsterchompy.gif)
