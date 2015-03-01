@@ -9,6 +9,8 @@ class ChompyApp
     include Sidekiq::Worker
 
     def perform(sock_fd, url)
+      url = WebRequest::UrlStandardizer.standardize(url)
+
       WebRequest.make(:get, url) do
         on_unsuccessful_request do |error|
           $redis.publish sock_fd, error
