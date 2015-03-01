@@ -1,3 +1,13 @@
+Thread.new do
+  @redis ||= Redis.new
+
+  @redis.subscribe("chaos") do |on|
+    on.message do |channel, chaos_percentage|
+      ChaosMonkeys::NetworkFailureMonkey.configure(chaos_percentage: chaos_percentage.to_i)
+    end
+  end
+end
+
 module ChaosMonkeys
   class NetworkFailureMonkey
     class << self
@@ -19,6 +29,7 @@ module ChaosMonkeys
       end
 
       def chaos(*args, &block)
+        puts @chaos_percentage
         if chaos?
           loop do
           end

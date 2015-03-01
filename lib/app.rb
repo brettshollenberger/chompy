@@ -8,5 +8,5 @@ end
 
 Dir[File.expand_path(File.join(__FILE__, "../**/*.rb"))].each  { |f| require f }
 
-ChaosMonkeys::NetworkFailureMonkey.configure(chaos_percentage: 80)
+ChaosMonkeys::NetworkFailureMonkey.configure(chaos_percentage: 0)
 ChaosMonkeys::NetworkFailureMonkey.chaos_wrapper(HTTParty, :get)

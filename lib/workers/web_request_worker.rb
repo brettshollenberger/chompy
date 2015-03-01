@@ -3,8 +3,6 @@ require 'redis'
 require 'sidekiq/api'
 require 'htmlbeautifier'
 
-$redis ||= Redis.new
-
 class ChompyApp
   class WebRequestWorker
     include Sidekiq::Worker
@@ -25,7 +23,6 @@ class ChompyApp
           end
         end
       rescue WebRequest::MaxAttemptsExceeded
-        puts "Max Attempts Exceeded"
         $redis.publish sock_fd, { params: params, error: "Max attempts exceeded" }.to_json
       rescue WebRequest::InvalidRequest
         $redis.publish sock_fd, { params: params, error: "Invalid request" }.to_json
