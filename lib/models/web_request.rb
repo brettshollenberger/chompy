@@ -19,24 +19,30 @@ private
       raise MaxAttemptsExceeded
     else
       begin
-        circuit_breaker.call(method, url)
+        response = circuit_breaker.call(method, url)
+        handler.successful_request(response)
+        return response
       rescue SocketError
         raise InvalidRequest
       rescue HTTParty::Error => e
-        case e.message
-        when /4\d{2}/
-          raise e
-        else
-          handle_unsuccessful(method, url, handler, attempt)
-        end
-      rescue Timeout::Error
-        handle_unsuccessful(method, url, handler, attempt)
+        handle_http_error(e, method, url, handler, attempt)
+      rescue Timeout::Error => e
+        handle_unsuccessful(e, method, url, handler, attempt)
       end
     end
   end
 
-  def self.handle_unsuccessful(method, url, handler, attempt)
-    handler.unsuccessful_request(url)
+  def self.handle_http_error(e, method, url, handler, attempt)
+    case e.message
+    when /4\d{2}/
+      raise e
+    else
+      handle_unsuccessful(e, method, url, handler, attempt)
+    end
+  end
+
+  def self.handle_unsuccessful(e, method, url, handler, attempt)
+    handler.unsuccessful_request(e)
     make_attempt(method, url, handler, attempt+1)
   end
 

@@ -7,8 +7,8 @@ class ChompyApp
     KEEPALIVE_TIME = 15
 
     class << self
-      def connections
-        @connections ||= {}
+      def subscriptions
+        @subscriptions ||= {}
       end
     end
 
@@ -48,9 +48,8 @@ class ChompyApp
     def __on_open__(ws)
       proc do
         p "socket opened"
-        SocketMiddleware.connections[ws.fileno] = ws
 
-        Thread.new do
+        SocketMiddleware.subscriptions[ws.fileno] = Thread.new do
           $redis.subscribe(ws.fileno) do |on|
             on.message do |channel, message|
               ws.send(message)
@@ -75,6 +74,10 @@ class ChompyApp
     def __on_close__(ws)
       proc do |event|
         p [:close]
+
+        SocketMiddleware.subscriptions[ws.fileno].kill
+        SocketMiddleware.subscriptions.delete(ws.fileno)
+
         on_close(ws)
       end
     end
