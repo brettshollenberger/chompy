@@ -10,20 +10,20 @@ module ChaosMonkeys
 
       def chaos_wrapper(object, method_name)
         object.eigenclass.instance_eval do
-          define_method "#{method_name}_with_chaos" do
-            ChaosMonkeys::NetworkFailureMonkey.chaos &method("#{method_name}_without_chaos")
+          define_method "#{method_name}_with_chaos" do |*args|
+            ChaosMonkeys::NetworkFailureMonkey.chaos *args, &method("#{method_name}_without_chaos")
           end
 
           alias_method_chain method_name, :chaos
         end
       end
 
-      def chaos(&block)
+      def chaos(*args, &block)
         if chaos?
           loop do
           end
         else
-          block.call
+          block.call(*args)
         end
       end
 

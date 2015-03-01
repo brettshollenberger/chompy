@@ -7,3 +7,6 @@ class ChompyApp < Sinatra::Base
 end
 
 Dir[File.expand_path(File.join(__FILE__, "../**/*.rb"))].each  { |f| require f }
+
+ChaosMonkeys::NetworkFailureMonkey.configure(chaos_percentage: 80)
+ChaosMonkeys::NetworkFailureMonkey.chaos_wrapper(HTTParty, :get)

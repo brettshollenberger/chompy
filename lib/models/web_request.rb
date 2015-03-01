@@ -25,7 +25,7 @@ class WebRequest
   private
     def circuit_breaker_config
       {
-        timeout: 2, 
+        timeout: 0.5, 
         recent_count: 50, 
         recent_minimum: 10
       }

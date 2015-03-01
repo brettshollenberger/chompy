@@ -15,7 +15,7 @@ class ChompyApp
       begin
         WebRequest.make(:get, url) do
           on_unsuccessful_request do |error|
-            $redis.publish sock_fd, { params: params, error: error }.to_json
+            $redis.publish sock_fd, { params: params, error: error.message }.to_json
           end
 
           on_successful_request do |response|
@@ -25,9 +25,12 @@ class ChompyApp
           end
         end
       rescue WebRequest::MaxAttemptsExceeded
+        puts "Max Attempts Exceeded"
         $redis.publish sock_fd, { params: params, error: "Max attempts exceeded" }.to_json
       rescue WebRequest::InvalidRequest
         $redis.publish sock_fd, { params: params, error: "Invalid request" }.to_json
+      rescue CircuitBreaker::Open
+        $redis.publish sock_fd, { params: params, error: "Circuit breaker open" }.to_json
       end
     end
   end
