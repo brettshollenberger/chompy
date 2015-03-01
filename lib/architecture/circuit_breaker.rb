@@ -1,5 +1,3 @@
-require "circuit_breaker/call_status"
-
 class CircuitBreaker
   class Open < StandardError; end
 

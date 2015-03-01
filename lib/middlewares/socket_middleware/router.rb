@@ -17,7 +17,7 @@ class ChompyApp
         end
       end
 
-      def self.route(request, sock)
+      def self.route(request, sock=nil)
         begin
           request = Request.new(request)
           route   = OpenStruct.new @routes[{:request_method => request.method.downcase.to_sym, 

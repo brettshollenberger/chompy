@@ -1,6 +1,6 @@
 module Mocks
   class GamesController
-    def self.index(params)
+    def self.index(params, sock)
       params.as_json
     end
 

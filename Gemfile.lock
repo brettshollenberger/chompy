@@ -1,6 +1,13 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    activesupport (4.1.4)
+      i18n (~> 0.6, >= 0.6.9)
+      json (~> 1.7, >= 1.7.7)
+      minitest (~> 5.1)
+      thread_safe (~> 0.1)
+      tzinfo (~> 1.1)
+    addressable (2.3.6)
     byebug (3.5.1)
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
@@ -10,6 +17,8 @@ GEM
     coderay (1.1.0)
     columnize (0.9.0)
     connection_pool (2.0.0)
+    crack (0.4.2)
+      safe_yaml (~> 1.0.0)
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
     dotenv (0.9.0)
@@ -37,6 +46,10 @@ GEM
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
     hitimes (1.2.2)
+    httparty (0.13.3)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
+    i18n (0.7.0)
     json (1.8.2)
     listen (2.8.5)
       celluloid (>= 0.15.2)
@@ -44,6 +57,8 @@ GEM
       rb-inotify (>= 0.9)
     lumberjack (1.0.9)
     method_source (0.8.2)
+    minitest (5.5.1)
+    multi_xml (0.5.5)
     nenv (0.2.0)
     notiffany (0.0.4)
       nenv (~> 0.1)
@@ -80,6 +95,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.2.0)
     rspec-support (3.2.1)
+    safe_yaml (1.0.1)
     shellany (0.0.1)
     sidekiq (3.2.4)
       celluloid (>= 0.15.2)
@@ -95,9 +111,15 @@ GEM
     terminal-notifier (1.6.2)
     terminal-notifier-guard (1.6.4)
     thor (0.19.1)
+    thread_safe (0.3.4)
     tilt (1.4.1)
     timers (4.0.1)
       hitimes
+    tzinfo (1.2.2)
+      thread_safe (~> 0.1)
+    webmock (1.17.2)
+      addressable (>= 2.2.7)
+      crack (>= 0.3.2)
     websocket-driver (0.5.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.1)
@@ -106,9 +128,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport
   faye-websocket
   foreman
   guard-rspec
+  httparty
   pry
   pry-byebug
   puma
@@ -119,3 +143,4 @@ DEPENDENCIES
   sinatra
   terminal-notifier
   terminal-notifier-guard
+  webmock

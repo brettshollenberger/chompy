@@ -6,6 +6,7 @@ gem "puma"
 gem "rake"
 gem "sidekiq"
 gem "redis"
+gem "httparty"
 
 group :development, :test do
   gem "pry"
@@ -18,4 +19,6 @@ group :test do
   gem "guard-rspec"
   gem "terminal-notifier"
   gem "terminal-notifier-guard"
+  gem "activesupport", :require => "active_support"
+  gem "webmock"
 end
