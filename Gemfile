@@ -7,6 +7,7 @@ gem "rake"
 gem "sidekiq"
 gem "redis"
 gem "httparty"
+gem "htmlbeautifier"
 
 group :development, :test do
   gem "pry"

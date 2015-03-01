@@ -46,6 +46,7 @@ GEM
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
     hitimes (1.2.2)
+    htmlbeautifier (1.0.2)
     httparty (0.13.3)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
@@ -132,6 +133,7 @@ DEPENDENCIES
   faye-websocket
   foreman
   guard-rspec
+  htmlbeautifier
   httparty
   pry
   pry-byebug

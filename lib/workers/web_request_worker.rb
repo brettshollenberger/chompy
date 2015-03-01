@@ -1,6 +1,7 @@
 require 'sidekiq'
 require 'redis'
 require 'sidekiq/api'
+require 'htmlbeautifier'
 
 $redis ||= Redis.new
 
@@ -8,16 +9,18 @@ class ChompyApp
   class WebRequestWorker
     include Sidekiq::Worker
 
-    def perform(sock_fd, url)
-      url = WebRequest::UrlStandardizer.standardize(url)
+    def perform(sock_fd, params)
+      url = WebRequest::UrlStandardizer.standardize(params["url"])
 
       WebRequest.make(:get, url) do
         on_unsuccessful_request do |error|
-          $redis.publish sock_fd, error
+          $redis.publish sock_fd, { params: params, error: error }.to_json
         end
 
         on_successful_request do |response|
-          $redis.publish sock_fd, response
+          response = HtmlBeautifier.beautify(response)
+
+          $redis.publish sock_fd, { params: params, response: response }.to_json
         end
       end
     end
