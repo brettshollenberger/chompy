@@ -1,5 +1,6 @@
 <div style="text-align:center;">
-![](https://github.com/brettshollenberger/chompy/blob/master/lib/assets/img/hipsterchompy.gif)
+<img src="https://github.com/brettshollenberger/chompy/blob/master/lib/assets/img/hipsterchompy.gif">
 
-# Chompy
+<h1>Chompy</h1>
+<hr>
 </div>
