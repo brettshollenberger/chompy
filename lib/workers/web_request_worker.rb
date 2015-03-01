@@ -12,16 +12,22 @@ class ChompyApp
     def perform(sock_fd, params)
       url = WebRequest::UrlStandardizer.standardize(params["url"])
 
-      WebRequest.make(:get, url) do
-        on_unsuccessful_request do |error|
-          $redis.publish sock_fd, { params: params, error: error }.to_json
-        end
+      begin
+        WebRequest.make(:get, url) do
+          on_unsuccessful_request do |error|
+            $redis.publish sock_fd, { params: params, error: error }.to_json
+          end
 
-        on_successful_request do |response|
-          response = HtmlBeautifier.beautify(response)
+          on_successful_request do |response|
+            response = HtmlBeautifier.beautify(response)
 
-          $redis.publish sock_fd, { params: params, response: response }.to_json
+            $redis.publish sock_fd, { params: params, response: response }.to_json
+          end
         end
+      rescue WebRequest::MaxAttemptsExceeded
+        $redis.publish sock_fd, { params: params, error: "Max attempts exceeded" }.to_json
+      rescue WebRequest::InvalidRequest
+        $redis.publish sock_fd, { params: params, error: "Invalid request" }.to_json
       end
     end
   end

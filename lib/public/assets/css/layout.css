@@ -20,6 +20,10 @@ body {
   max-width: 75em;
 }
 
+#main h1 {
+  text-align: center;
+}
+
 [code-displayer], [code-displayer] pre {
   height: 500px;
   max-height: 500px;
