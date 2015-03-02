@@ -41,7 +41,7 @@ describe WebRequest do
           end
         }.to raise_error
 
-        expect(unsuccessful_requests).to eq 3
+        expect(unsuccessful_requests).to eq 2
       end
 
       it "calls handler on invalid request" do
