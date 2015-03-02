@@ -18,6 +18,10 @@ module ChaosMonkeys
         self
       end
 
+      # Public: Wrap any method with the network chaos setting. 
+      #
+      # If chaotic, the method will hang forever
+      #
       def chaos_wrapper(object, method_name)
         object.eigenclass.instance_eval do
           define_method "#{method_name}_with_chaos" do |*args|
@@ -28,8 +32,9 @@ module ChaosMonkeys
         end
       end
 
+      # Public: If chaotic, cause a block to never be executed
+      #
       def chaos(*args, &block)
-        puts @chaos_percentage
         if chaos?
           loop do
           end
@@ -38,6 +43,10 @@ module ChaosMonkeys
         end
       end
 
+      # Public: Use the chaos percentage to determine whether or not a request will succeed.
+      #
+      # A chaos setting of 30% has a 30% chance of failure.
+      #
       def chaos?
         return false if @chaos_percentage == 0 
 
