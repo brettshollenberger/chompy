@@ -23,9 +23,8 @@ Chompy features a built-in network failure chaos monkey, which simulates intermi
 The chaos setting on the client allows the developer to easily simulate failure conditions in order to plan the client around failures. Under failing conditions, the user receives acknowledgement of requests and failures in order to alleviate the aggrevations of working with a failing application. 
 
 ```ruby
-# Public: Wrap any method with the network chaos setting. 
-#
-# If chaotic, the method will hang forever
+# Public: Wrap any method with the network chaos setting. The method can be called normally,
+# and if chaotic, it will hang forever.
 #
 def chaos_wrapper(object, method_name)
   object.eigenclass.instance_eval do
