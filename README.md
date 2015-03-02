@@ -4,6 +4,10 @@
 <img src="https://github.com/brettshollenberger/chompy/blob/master/lib/assets/img/hipsterchompy.gif">
 </div>
 
+### Goals:
+* Plan for network failure, bad actors, and request flooding
+* Provide clients with immediate feedback and degraded experience (instead of no experience) in the face of failures
+
 ### Fault Tolerance is a Requirement, Not A Feature
 
 Chompy displays the source code of web pages resiliently. Since the system could receive a request to display literally any page, a DOM viewer could be susceptible to a number of tricky bugs: long running network calls, servers returning unintelligible formats, malicious users that direct traffic to servers that intentionally hang forever.
