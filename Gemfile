@@ -9,6 +9,7 @@ gem "redis"
 gem "httparty"
 gem "htmlbeautifier"
 gem "activesupport", :require => "active_support/all"
+gem "god"
 
 group :development, :test do
   gem "pry"
