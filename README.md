@@ -8,7 +8,7 @@
 
 Chompy displays the source code of web pages resiliently. Since the system could receive a request to display literally any page, a DOM viewer could be susceptible to a number of tricky bugs: long running network calls, servers returning unintelligible formats, malicious users that direct traffic to servers that intentionally hang forever.
 
-The Netflix Tech Blog has pointed to systems of theirs that have some 30 dependencies a piece--and without taking steps for fault tolerance, systems with 30 dependencies with 99.99% uptime would still have more than 2 hours of downtime per month (99.99%30 = 99.7% uptime = 2+ hours in a month). Chompy has a nearly infinite number of dependencies (any page on the internet), and as such it is designed for aggressive fault tolerance.
+The Netflix Tech Blog has pointed to systems of theirs that have some 30 dependencies a piece--and without taking steps for fault tolerance, systems with 30 dependencies with 99.99% uptime would still have more than 2 hours of downtime per month (99.99^30 = 99.7% uptime = 2+ hours in a month). Chompy has a nearly infinite number of dependencies (any page on the internet), and as such it is designed for aggressive fault tolerance.
 
 ### What is Fault Tolerance?
 
