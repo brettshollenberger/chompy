@@ -14,7 +14,9 @@ module ChaosMonkeys
       attr_accessor :chaos_percentage
 
       def configure(options={})
-        @chaos_percentage = options.fetch(:chaos_percentage, 0)
+        @chaos_percentage = options.fetch(:chaos_percentage, 0).to_i
+        @chaos_percentage = 0 if @chaos_percentage < 0
+        @chaos_percentage = 100 if @chaos_percentage > 0
         self
       end
 

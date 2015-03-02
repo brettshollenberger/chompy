@@ -16,10 +16,10 @@ describe MessageChunker do
 
   it "chunks messages into groups of a specified length" do
     @chunks[0..-2].each do |chunk|
-      expect(chunk[:message].length).to eq 20
+      expect(chunk[:response].length).to eq 20
     end
 
-    expect(@chunks.last[:message].length).to be_between(1, 20).inclusive
+    expect(@chunks.last[:response].length).to be_between(1, 20).inclusive
   end
 
   it "counts the number of chunks" do

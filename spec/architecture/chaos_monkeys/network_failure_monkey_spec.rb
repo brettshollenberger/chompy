@@ -8,6 +8,16 @@ describe ChaosMonkeys::NetworkFailureMonkey do
     end
   end
 
+  describe "#configure" do
+    it "sets number between 0 and 100 chaos percentage" do
+      ChaosMonkeys::NetworkFailureMonkey.configure(chaos_percentage: -100)
+      expect(ChaosMonkeys::NetworkFailureMonkey.chaos_percentage).to eq 0
+
+      ChaosMonkeys::NetworkFailureMonkey.configure(chaos_percentage: 1000)
+      expect(ChaosMonkeys::NetworkFailureMonkey.chaos_percentage).to eq 100
+    end
+  end
+
   context "When not chaotic" do
     before(:all) do
       ChaosMonkeys::NetworkFailureMonkey.configure(chaos_percentage: 0)
@@ -38,6 +48,10 @@ describe ChaosMonkeys::NetworkFailureMonkey do
   context "When chaotic" do
     before(:all) do
       ChaosMonkeys::NetworkFailureMonkey.configure(chaos_percentage: 100)
+    end
+
+    after(:all) do
+      ChaosMonkeys::NetworkFailureMonkey.configure(chaos_percentage: 0)
     end
 
     it "hangs indefinitely around a block when 100% chaos_percentage" do
