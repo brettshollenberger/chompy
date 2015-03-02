@@ -90,4 +90,4 @@ By default, web sockets do not chunk messages the way HTTP does. Since the Chomp
 
 The client uses functional reactive programming (the RxJS library), to assemble streaming responses and insert them into the DOM, or apply them as user notifications. The first step in DOM directives is usually a socket filter, so that the component only pays attention to messages in which it is interested. 
 
-Syntax highlight is, if possible, achieved asynchronously via Web Workers, and outside of the DOM, so that the user can first view unhighlighted code, and then proceed to an improved experience as it becomes available. 
+Syntax highlighting is, if possible, achieved asynchronously via Web Workers, and outside of the DOM, so that the user can first view unhighlighted code, and then proceed to an improved experience as it becomes available. 
