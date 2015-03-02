@@ -15,6 +15,9 @@ describe ChaosMonkeys::NetworkFailureMonkey do
 
       ChaosMonkeys::NetworkFailureMonkey.configure(chaos_percentage: 1000)
       expect(ChaosMonkeys::NetworkFailureMonkey.chaos_percentage).to eq 100
+
+      ChaosMonkeys::NetworkFailureMonkey.configure(chaos_percentage: 50)
+      expect(ChaosMonkeys::NetworkFailureMonkey.chaos_percentage).to eq 50
     end
   end
 
