@@ -16,6 +16,12 @@ A fault tolerant application plans for its own failure, and rebounds from failur
 
 An intolerant system would not only fail to acknowledge requests and failures, it would also be easy prey for attack. The API could easily be flooded with requests, or requests to long-running servers; if the API requested external resources as part of the request/response cycle, with no knowledge of the requests it was making, no timeouts, no parallelism, and no overarching failure management system (like a circuit breaker)--it would fail easily and fail hard.
 
+### Chaos Monkeys and Planning for Failure
+
+Chompy features a built-in network failure chaos monkey, which simulates intermittent networking issues. When set to 0% chaos, no requests will fail; when set to 100%, all requests will fail. The chaos monkey simulates this error by wrapping all networking calls and deciding via the chaos setting whether or not this request will succeed or fail. If the request is intended to fail, the chaos monkey will enter an infinite loop (never actually making the request), and causing the circuit breaker to exit with a timeout. 
+
+The chaos setting on the client allows the developer to easily simulate failure conditions in order to plan the client around failures. Under failing conditions, the user receives acknowledgement of requests and failures in order to alleviate the aggrevations of working with a failing application. 
+
 ### What Does the User See?
 
 In the best case scenario, the user sees that everything is working as expected. They request a webpage's source code, and see it displayed nearly instantaneously. 
