@@ -1,2 +1,2 @@
-/* web: rackup -p 3001 */
-workers: sidekiq -r ./lib/app.rb
+/* web: rackup -p 3001 -E production */
+/* workers: sidekiq -r ./lib/app.rb */

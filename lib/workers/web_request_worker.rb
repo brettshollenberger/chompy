@@ -22,13 +22,25 @@ class ChompyApp
             $redis.publish sock_fd, { params: params, response: response }.to_json
           end
         end
-      rescue WebRequest::MaxAttemptsExceeded
-        $redis.publish sock_fd, { params: params, error: "Max attempts exceeded" }.to_json
-      rescue WebRequest::InvalidRequest
-        $redis.publish sock_fd, { params: params, error: "Invalid request" }.to_json
-      rescue CircuitBreaker::Open
-        $redis.publish sock_fd, { params: params, error: "Circuit breaker open" }.to_json
+      rescue WebRequest::MaxAttemptsExceeded, 
+             WebRequest::InvalidRequest, 
+             URI::InvalidURIError,
+             CircuitBreaker::Open, 
+             Zlib::BufError, 
+             Encoding::UndefinedConversionError => e
+        $redis.publish sock_fd, { params: params, error: error_text(e) }.to_json
       end
+    end
+
+    def error_text(error)
+      {
+        "WebRequest::MaxAttemptsExceeded" => "Max attempts exceeded",
+        "WebRequest::InvalidRequest" => "Invalid request",
+        "URI::InvalidURIError" => "Invalid request",
+        "CircuitBreaker::Open" => "Circuit breaker open",
+        "Zlib::BufError" => "Buffer error",
+        "Encoding::UndefinedConversionError" => "Uninterpretable response"
+      }[error.class.name]
     end
   end
 end

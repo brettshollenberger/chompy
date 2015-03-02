@@ -25,9 +25,10 @@ class WebRequest
   private
     def circuit_breaker_config
       {
-        timeout: 0.5, 
+        timeout: 4, 
         recent_count: 50, 
-        recent_minimum: 10
+        recent_minimum: 10,
+        failure_threshold: 0.9
       }
     end
 
@@ -63,7 +64,7 @@ class WebRequest
     end
 
     def handle_unsuccessful(e, method, url, handler, attempt)
-      handler.unsuccessful_request(e)
+      handler.unsuccessful_request(e) unless attempt == max_attempts
       make_attempt(method, url, handler, attempt+1)
     end
   end

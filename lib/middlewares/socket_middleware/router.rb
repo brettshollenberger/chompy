@@ -43,7 +43,8 @@ class ChompyApp
             method: method,
             url: url
           },
-          body: body
+          body: body,
+          params: request.body.as_json
         })
       end
       

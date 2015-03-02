@@ -17,6 +17,10 @@ class ChompyApp
       @app         = app
     end
 
+    def chunker
+      @chunker ||= MessageChunker.new(chunk_size: 1000)
+    end
+
     def call(env)
       if Websocket.websocket?(env)
         initialize_socket(env).rack_response
@@ -52,7 +56,15 @@ class ChompyApp
         SocketMiddleware.subscriptions[ws.fileno] = Thread.new do
           $redis.subscribe(ws.fileno) do |on|
             on.message do |channel, message|
-              ws.send(message)
+              json = JSON.parse(message)
+
+              if json["response"].present?
+                chunker.chunk(json["response"]).each do |chunk|
+                  ws.send(chunk.merge(params: json["params"]).to_json)
+                end
+              else
+                ws.send(message)
+              end
             end
           end
         end
