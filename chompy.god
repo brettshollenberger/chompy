@@ -40,7 +40,7 @@ God.watch do |god|
   god.group = "chompy"
   god.name  = "sidekiq"
   god.dir   = CHOMPY_APP_ROOT
-  god.start = "bundle exec sidekiq"
+  god.start = "bundle exec sidekiq -r ./lib/app"
   god.log   = "./log/sidekiq.log"
   god.keepalive
 

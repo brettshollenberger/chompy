@@ -1,9 +1,9 @@
 require "json"
+require "pry"
 
 $redis ||= Redis.new
 
-class ChompyApp < Sinatra::Base
-  class SocketMiddleware
+class SocketMiddleware
     KEEPALIVE_TIME = 15
 
     class << self
@@ -93,5 +93,4 @@ class ChompyApp < Sinatra::Base
         on_close(ws)
       end
     end
-  end
 end

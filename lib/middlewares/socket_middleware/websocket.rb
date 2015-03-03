@@ -1,6 +1,5 @@
 require "faye/websocket"
 
-class ChompyApp < Sinatra::Base
   class SocketMiddleware
     class Websocket < Faye::WebSocket
       def fileno
@@ -8,4 +7,3 @@ class ChompyApp < Sinatra::Base
       end
     end
   end
-end

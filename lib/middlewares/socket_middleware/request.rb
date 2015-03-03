@@ -1,4 +1,3 @@
-class ChompyApp < Sinatra::Base
   class SocketMiddleware
     class Request
       class UnprocessableEntityError < StandardError; end
@@ -30,4 +29,3 @@ class ChompyApp < Sinatra::Base
       end
     end
   end
-end
