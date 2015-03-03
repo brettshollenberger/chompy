@@ -3,7 +3,7 @@ require 'redis'
 require 'sidekiq/api'
 require 'htmlbeautifier'
 
-class ChompyApp
+class ChompyApp < Sinatra::Base
   class WebRequestWorker
     include Sidekiq::Worker
 

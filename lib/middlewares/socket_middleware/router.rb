@@ -1,6 +1,6 @@
 require "ostruct"
 
-class ChompyApp
+class ChompyApp < Sinatra::Base
   class SocketMiddleware
     class Router
       @routes = {}

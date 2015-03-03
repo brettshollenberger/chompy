@@ -1,6 +1,6 @@
 require "faye/websocket"
 
-class ChompyApp
+class ChompyApp < Sinatra::Base
   class SocketMiddleware
     class Websocket < Faye::WebSocket
       def fileno
