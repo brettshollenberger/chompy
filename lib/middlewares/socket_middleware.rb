@@ -2,7 +2,6 @@ require "json"
 
 $redis ||= Redis.new
 
-class ChompyApp < Sinatra::Base
   class SocketMiddleware
     KEEPALIVE_TIME = 15
 
@@ -94,4 +93,3 @@ class ChompyApp < Sinatra::Base
       end
     end
   end
-end
